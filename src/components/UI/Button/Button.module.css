@@ -1,0 +1,9 @@
+.button {
+  padding: 10px;
+  font-size: tahoma;
+  font-weight: bold;
+  cursor: pointer;
+  display: block;
+  top: 20px;
+  position: relative;
+}
