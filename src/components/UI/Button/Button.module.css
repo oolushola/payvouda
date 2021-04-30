@@ -4,6 +4,7 @@
   font-weight: bold;
   cursor: pointer;
   display: block;
-  top: 20px;
+  top: 10px;
   position: relative;
+  margin-bottom: 20px;
 }

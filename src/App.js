@@ -6,11 +6,7 @@ import React, { useState } from 'react'
 
 const App = () => {
   
-  const [users, setUsers] = useState([
-    { id: 1, name: 'Olushola Odejobi', age: 16, },
-    { id: 2, name: 'Gambo Idowu', age: 50 },
-    { id: 3, name: 'Fusai Truman', age: 20 }
-  ])
+  const [users, setUsers] = useState([])
 
   const getUserInfoHandler = (userData) => {
     const userArray = [...users]
@@ -24,7 +20,13 @@ const App = () => {
         <UserForm onGetUserInfo   = { getUserInfoHandler } />
       </Container>
       <Container>
-        <Users usersLists = { users } />
+        {
+          users.length <= 0 ? (
+            <h5>Oops! no users added yet! </h5>
+          ) : (
+            <Users usersLists = { users } />
+          )
+        }
       </Container>
       
     </div>

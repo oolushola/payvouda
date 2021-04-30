@@ -1,8 +1,9 @@
 import UserItem from './UserList/UserItem'
+import Wrapper from '../UI/Handlers/Wrapper'
 
 const Users = props => {
   return (
-    <div className="">
+    <Wrapper>
       <ul>
         {
           props.usersLists.map(user => {
@@ -10,7 +11,7 @@ const Users = props => {
           })
         }
       </ul>
-    </div>
+    </Wrapper>
   )
 }
 

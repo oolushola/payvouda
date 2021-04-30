@@ -1,5 +1,5 @@
 import styles from './UserForm.module.css'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Modal from '../UI/Modal/Modal'
 import Button from '../UI/Button/Button'
 
@@ -7,20 +7,13 @@ let errorMessage;
 
 const UserForm = (props) => {
   const [noError, setError] = useState(true)
-  const [username, setUsername ] = useState('')
-  const [userAge, setUserAge ] = useState('')
 
-  const getUsernameHandler = (event) => {
-    setUsername(event.target.value)
-  }
-
-  const getUserAgeHandler = (event) => {  
-      setUserAge(event.target.value)
-  }
+  const userAge = useRef()
+  const username = useRef()
 
   const submitUserDataHandler = (event) => {
     event.preventDefault()
-    if(username === "" || userAge === "") {
+    if(username.current.value.trim().length <= 0 || userAge.current.value.trim().length <= 0  ) {
       errorMessage = 'Name and Age is required'
       setError(false)
     }
@@ -31,12 +24,12 @@ const UserForm = (props) => {
     else {
       const userInfo = {
         id: Math.random().toFixed(3),
-        name: username,
-        age: userAge
+        name: username.current.value,
+        age: userAge.current.value
       }
       props.onGetUserInfo(userInfo)
-      setUsername('')
-      setUserAge('')
+      username.current.value = ''
+      userAge.current.value = ''
     }
   }
 
@@ -46,17 +39,18 @@ const UserForm = (props) => {
   }
 
   return (
-    <div>
+    <React.Fragment>
       <form onSubmit={ submitUserDataHandler }>
         <div className={ styles.formControls }>
           <label>Username</label>
-          <input type="text" placeholder="John Doe" onChange={ getUsernameHandler } value={ username } />
+          <input type="text" placeholder="John Doe" ref={ username} />
         </div>
         <div  className={ styles.formControls }>
           <label>Age (Years)</label>
-          <input type="number" placeholder="12" onChange={ getUserAgeHandler } value={ userAge } />
+          <input type="number" placeholder="12" ref={ userAge } />
         </div>
-        <button type="submit" className = { styles.button }>Add User</button>
+        {/* <button type="submit" className = { styles.button }>Add User</button> */}
+        <Button type="submit">Add User</Button>
       </form>
       {
         !noError ? (<Modal> 
@@ -65,7 +59,7 @@ const UserForm = (props) => {
           </Modal> 
         ) : ''
       }
-    </div>
+    </React.Fragment>
   )
 }
 
